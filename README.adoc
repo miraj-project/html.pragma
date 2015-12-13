@@ -6,3 +6,44 @@ HTML Pragma functions
 # Usage
 
 link:http://clojars.org/miraj.html/pragma[image:http://clojars.org/miraj.html/pragma/latest-version.svg[]]
+
+[source,clojure]
+----
+(ns pragma-test
+  (:require [miraj.html.pragma :as pragma]))
+
+(println (pragma/content-type "utf-8"))
+;;  #miraj.markup.Element{:tag meta, :attrs {:content utf-8, :http-equiv content-type}, :content ()}
+
+(println (miraj.markup/serialize :html
+                                 (pragma/content-type "utf-8")))
+;; <meta content="utf-8" http-equiv="content-type">
+
+(println (miraj.markup/serialize :html
+                                 (pragma/default-style "styles/default.css")))
+;; <meta content="styles/default.css" http-equiv="default-style">
+
+(println (miraj.markup/serialize :html
+                                 (pragma/refresh 300)))
+;; <meta content="300" http-equiv="refresh">
+
+(println (miraj.markup/serialize :html
+                                 (pragma/refresh "20; URL=page4.html")))
+;; <meta content="20; URL=page4.html" http-equiv="refresh">
+
+(println (miraj.markup/serialize :html
+                                 (pragma/content-security-policy "script-src 'self'; object-src 'none'")))
+;; <meta content="script-src 'self'; object-src 'none'" http-equiv="Content-Security-Policy">
+
+;; non-conforming - throw exceptions
+(miraj.markup/serialize :html
+ (pragma/content-language "en"))
+;; Exception http-equiv='content-language' is a non-conforming feature. Authors
+;; are encouraged to use the lang attribute instead.
+
+(miraj.markup/serialize :html
+ (pragma/set-cookie "en"))
+;; Exception http-equiv='set-cookie' is a non-conforming feature. Real HTTP
+;; headers should be used instead.
+----
+

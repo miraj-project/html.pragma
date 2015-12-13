@@ -1,8 +1,7 @@
 (ns pragma-test
-  (:require [miraj.html :as h]
-            [miraj.html.pragma :as pragma]))
+  (:require [miraj.html.pragma :as pragma]))
 
-(h/span {:foo "bar"})
+(println (pragma/content-type "utf-8"))
 
 (miraj.markup/serialize :html
  (pragma/content-type "utf-8"))
