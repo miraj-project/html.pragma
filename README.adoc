@@ -1,0 +1,8 @@
+miraj.html.pragma
+-----------------
+
+HTML Pragma functions
+
+# Usage
+
+link:http://clojars.org/miraj.html/pragma[image:http://clojars.org/miraj.html/pragma/latest-version.svg[]]
